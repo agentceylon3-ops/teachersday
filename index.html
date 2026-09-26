@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Teacher's Day!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Serif+Sinhala:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+    --gold: #FFD700;
+    --gold-light: #FFF099;
+    --gold-dark: #B8860B;
+    --bg-black: #080C14;
+    --bg-blue: #0A192F;
+    --text-white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, var(--bg-black) 0%, var(--bg-blue) 100%);
+    color: var(--text-white);
+    font-family: 'Poppins', 'Noto Serif Sinhala', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+#featherCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.intro-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 12, 20, 0.95);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.intro-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.intro-content {
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+    margin-bottom: 25px;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-overlay-text {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(8, 12, 20, 0.85), transparent);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.intro-icon {
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.video-overlay-text h2 {
+    color: var(--text-white);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.open-btn {
+    background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+    color: #000;
+    border: none;
+    padding: 14px 35px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.open-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+.card-container {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 550px;
+    background: rgba(17, 34, 64, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 24px;
+    padding: 35px 25px;
+    margin: 30px 0;
+    text-align: center;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.card-container.hidden {
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.teacher-name {
+    font-family: 'Cinzel', 'Noto Serif Sinhala', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    color: var(--gold);
+}
+
+.divider .line {
+    height: 1px;
+    width: 60px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.photo-section {
+    margin-bottom: 25px;
+}
+
+.photo-frame {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+    border-radius: 50%;
+    padding: 5px;
+    background: linear-gradient(45deg, var(--gold), var(--gold-dark));
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--bg-black);
+}
+
+.sinhala-quote {
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    font-style: italic;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.sinhala-message {
+    font-size: 0.95rem;
+    color: var(--text-white);
+    line-height: 1.8;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.feature-badges {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.badge-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    padding: 10px 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+}
+
+.badge-item i {
+    color: var(--gold);
+    font-size: 1.2rem;
+}
+
+.card-footer p {
+    font-size: 0.9rem;
+    color: var(--gold);
+    font-weight: 600;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Canvas for Floating Feathers -->
+    <canvas id="featherCanvas"></canvas>
+
+    <!-- Background Audio -->
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Intro Video Screen -->
+    <div id="introScreen" class="intro-overlay">
+        <div class="intro-content">
+            <div class="video-container">
+                <video id="introVideo" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=600&q=80">
+                    <source src="intro.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay-text">
+                    <i class="fa-solid fa-award intro-icon"></i>
+                    <h2>ලෝක ගුරු දිනය වෙනුවෙන් පිදෙන උපහාරය</h2>
+                </div>
+            </div>
+            
+            <button id="openCardBtn" class="open-btn">
+                <i class="fa-solid fa-envelope-open-text"></i> සුභ පැතුම බලන්න
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Card Container -->
+    <main class="card-container hidden" id="mainCard">
+        
+        <header class="card-header">
+            <div class="badge">
+                <i class="fa-solid fa-star"></i>
+                <span>Happy Teacher's Day</span>
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <h1 id="teacherNameDisplay" class="teacher-name">ගරු ගුරුතුමනි</h1>
+            <div class="divider">
+                <span class="line"></span>
+                <i class="fa-solid fa-book-open"></i>
+                <span class="line"></span>
+            </div>
+        </header>
+
+        <section class="photo-section">
+            <div class="photo-frame">
+                <img id="teacherImage" src="teacher.png" alt="Teacher Photo">
+            </div>
+        </section>
+
+        <section class="wish-content">
+            <p class="sinhala-quote">
+                "ලොව අඳුර දුරලන දැල්වුණු පහනක් බඳු ගුරුතුමනි / ගුරුතුමියනි..."
+            </p>
+            <p class="sinhala-message">
+                අපගේ අනාගතය ආලෝකවත් කිරීමටත්, නිවැරදි මඟ පෙන්වීමටත් ඔබතුමන් දැක්වූ අප්‍රමාණ කැපවීම හා ඉවසීමට අපගේ හෘදයාංගම ප්‍රණාමය! ඔබගේ සියලු යහපත් ප්‍රාර්ථනා සර්වප්‍රකාරයෙන්ම සාර්ථක වේවා!
+            </p>
+        </section>
+
+        <section class="feature-badges">
+            <div class="badge-item">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>ඥානය</span>
+            </div>
+            <div class="badge-item">
+                <i class="fa-solid fa-heart"></i>
+                <span>දයාව</span>
+            </div>
+            <div class="badge-item">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>මඟපෙන්වීම</span>
+            </div>
+        </section>
+
+        <footer class="card-footer">
+            <p>ඔබට සුභ ගුරු දිනයක් වේවා! ❤️</p>
+            <p>Home Artist <span style="color: white;">තිළිනයකි</span> </p>
+            <p style="font-size: 10px;">Digital card creater <span >0781227941</span></p>
+        </footer>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Get Teacher Name from URL (?name=...)
+    const urlParams = new URLSearchParams(window.location.search);
+    const teacherName = urlParams.get('name');
+    const nameDisplay = document.getElementById('teacherNameDisplay');
+
+    if (teacherName && teacherName.trim() !== '') {
+        nameDisplay.textContent = ` ${decodeURIComponent(teacherName)} ගුරුතුමනි...`;
+    } else {
+        nameDisplay.textContent = "ගරු ගුරුතුමනි / ගුරුතුමියනි";
+    }
+
+    // 2. Intro Screen & Music Controls
+    const introScreen = document.getElementById('introScreen');
+    const mainCard = document.getElementById('mainCard');
+    const openCardBtn = document.getElementById('openCardBtn');
+    const bgMusic = document.getElementById('bgMusic');
+
+    if (openCardBtn) {
+        openCardBtn.addEventListener('click', () => {
+            bgMusic.play().catch(e => console.log("Audio play error: ", e));
+            introScreen.classList.add('fade-out');
+
+            setTimeout(() => {
+                introScreen.style.display = 'none';
+                mainCard.classList.remove('hidden');
+            }, 800);
+        });
+    }
+
+    // 3. Falling Feathers Particle System
+    const canvas = document.getElementById('featherCanvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const feathers = [];
+    const featherCount = 20;
+
+    class Feather {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * -canvas.height;
+            this.size = Math.random() * 8 + 10;
+            this.speedY = Math.random() * 1 + 0.5;
+            this.angle = Math.random() * Math.PI * 2;
+            this.spin = (Math.random() - 0.5) * 0.02;
+            this.opacity = Math.random() * 0.25 + 0.1; // Low opacity
+            this.color = Math.random() > 0.5 ? '173, 216, 230' : '255, 215, 0';
+        }
+
+        update() {
+            this.y += this.speedY;
+            this.x += Math.sin(this.y * 0.02) * 0.8;
+            this.angle += this.spin;
+
+            if (this.y > canvas.height + 20) {
+                this.reset();
+            }
+        }
+
+        draw() {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.angle);
+            
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+            ctx.ellipse(0, 0, this.size / 3, this.size, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+    }
+
+    for (let i = 0; i < featherCount; i++) {
+        feathers.push(new Feather());
+    }
+
+    function animateFeathers() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        feathers.forEach(f => {
+            f.update();
+            f.draw();
+        });
+        requestAnimationFrame(animateFeathers);
+    }
+
+    animateFeathers();
+});
+    </script>
+</body>
+</html>
