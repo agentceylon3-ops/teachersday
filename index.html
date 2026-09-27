@@ -8,246 +8,251 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Serif+Sinhala:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-    --gold: #FFD700;
-    --gold-light: #FFF099;
-    --gold-dark: #B8860B;
-    --bg-black: #080C14;
-    --bg-blue: #0A192F;
-    --text-white: #FFFFFF;
-}
+            --gold: #FFD700;
+            --gold-light: #FFF099;
+            --gold-dark: #B8860B;
+            --bg-black: #080C14;
+            --bg-blue: #0A192F;
+            --text-white: #FFFFFF;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    background: linear-gradient(135deg, var(--bg-black) 0%, var(--bg-blue) 100%);
-    color: var(--text-white);
-    font-family: 'Poppins', 'Noto Serif Sinhala', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
-}
+        body {
+            background: linear-gradient(135deg, var(--bg-black) 0%, var(--bg-blue) 100%);
+            color: var(--text-white);
+            font-family: 'Poppins', 'Noto Serif Sinhala', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
 
-#featherCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
+        #featherCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-.intro-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(8, 12, 20, 0.95);
-    z-index: 999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
-}
+        .intro-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 12, 20, 0.95);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
 
-.intro-overlay.fade-out {
-    opacity: 0;
-    visibility: hidden;
-}
+        .intro-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
 
-.intro-content {
-    max-width: 450px;
-    width: 100%;
-    text-align: center;
-}
+        .intro-content {
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.video-container {
-    position: relative;
-    width: 100%;
-    height: 250px;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 2px solid var(--gold);
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
-    margin-bottom: 25px;
-}
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 270px;
+            aspect-ratio: 9 / 16;
+            max-height: 55vh;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+            margin: 0 auto 25px;
+        }
 
-.video-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-.video-overlay-text {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(8, 12, 20, 0.85), transparent);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-}
+        .video-overlay-text {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(8, 12, 20, 0.85), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
 
-.intro-icon {
-    font-size: 2.5rem;
-    color: var(--gold);
-    margin-bottom: 10px;
-}
+        .intro-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
 
-.video-overlay-text h2 {
-    color: var(--text-white);
-    font-size: 1.2rem;
-    font-weight: 600;
-}
+        .video-overlay-text h2 {
+            color: var(--text-white);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
 
-.open-btn {
-    background: linear-gradient(45deg, var(--gold-dark), var(--gold));
-    color: #000;
-    border: none;
-    padding: 14px 35px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
-    transition: all 0.3s ease;
-}
+        .open-btn {
+            background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+            color: #000;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s ease;
+        }
 
-.open-btn:hover {
-    transform: translateY(-3px) scale(1.03);
-}
+        .open-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+        }
 
-.card-container {
-    position: relative;
-    z-index: 10;
-    width: 90%;
-    max-width: 550px;
-    background: rgba(17, 34, 64, 0.85);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    border-radius: 24px;
-    padding: 35px 25px;
-    margin: 30px 0;
-    text-align: center;
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
+        .card-container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 550px;
+            background: rgba(17, 34, 64, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 24px;
+            padding: 35px 25px;
+            margin: 30px 0;
+            text-align: center;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
 
-.card-container.hidden {
-    opacity: 0;
-    transform: translateY(30px);
-    pointer-events: none;
-}
+        .card-container.hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            pointer-events: none;
+        }
 
-.badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 215, 0, 0.1);
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
 
-.teacher-name {
-    font-family: 'Cinzel', 'Noto Serif Sinhala', serif;
-    font-size: 2rem;
-    color: var(--gold);
-    margin-bottom: 10px;
-}
+        .teacher-name {
+            font-family: 'Cinzel', 'Noto Serif Sinhala', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
 
-.divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 25px;
-    color: var(--gold);
-}
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            color: var(--gold);
+        }
 
-.divider .line {
-    height: 1px;
-    width: 60px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-}
+        .divider .line {
+            height: 1px;
+            width: 60px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
 
-.photo-section {
-    margin-bottom: 25px;
-}
+        .photo-section {
+            margin-bottom: 25px;
+        }
 
-.photo-frame {
-    position: relative;
-    width: 160px;
-    height: 160px;
-    margin: 0 auto;
-    border-radius: 50%;
-    padding: 5px;
-    background: linear-gradient(45deg, var(--gold), var(--gold-dark));
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
-}
+        .photo-frame {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(45deg, var(--gold), var(--gold-dark));
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+        }
 
-.photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid var(--bg-black);
-}
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--bg-black);
+        }
 
-.sinhala-quote {
-    font-size: 1.1rem;
-    color: var(--gold-light);
-    font-style: italic;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
+        .sinhala-quote {
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            font-style: italic;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
 
-.sinhala-message {
-    font-size: 0.95rem;
-    color: var(--text-white);
-    line-height: 1.8;
-    margin-bottom: 25px;
-    opacity: 0.9;
-}
+        .sinhala-message {
+            font-size: 0.95rem;
+            color: var(--text-white);
+            line-height: 1.8;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
 
-.feature-badges {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 25px;
-}
+        .feature-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
 
-.badge-item {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    padding: 10px 15px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.8rem;
-}
+        .badge-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 10px 15px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+        }
 
-.badge-item i {
-    color: var(--gold);
-    font-size: 1.2rem;
-}
+        .badge-item i {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
 
-.card-footer p {
-    font-size: 0.9rem;
-    color: var(--gold);
-    font-weight: 600;
-}
+        .card-footer p {
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -256,7 +261,7 @@ body {
     <canvas id="featherCanvas"></canvas>
 
     <!-- Background Audio -->
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic" loop preload="auto">
         <source src="bgMusic.mp3" type="audio/mp3">
     </audio>
 
@@ -329,7 +334,7 @@ body {
         <footer class="card-footer">
             <p>ඔබට සුභ ගුරු දිනයක් වේවා! ❤️</p>
             <p>Home Artist <span style="color: white;">තිළිනයකි</span> </p>
-            <p style="font-size: 10px;">Digital card creater <span >0781227941</span></p>
+            <p style="font-size: 10px;">Digital card creater <span>0781227941</span></p>
         </footer>
 
     </main>
@@ -356,7 +361,14 @@ body {
 
     if (openCardBtn) {
         openCardBtn.addEventListener('click', () => {
-            bgMusic.play().catch(e => console.log("Audio play error: ", e));
+            if (bgMusic) {
+                bgMusic.currentTime = 0;
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(e => console.log("Audio play error: ", e));
+                }
+            }
+
             introScreen.classList.add('fade-out');
 
             setTimeout(() => {
